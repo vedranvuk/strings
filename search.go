@@ -41,3 +41,43 @@ func HasPrefixFold(s, prefix string) bool {
 func HasSuffixFold(s, suffix string) bool {
 	return strings.HasSuffix(strings.ToLower(s), strings.ToLower(suffix))
 }
+
+// Checks if "s" consists exclusively of numeric characters.
+func IsNumsOnly(s string) bool {
+	for _, c := range s {
+		if !strings.Contains(Nums, string(c)) {
+			return false
+		}
+	}
+	return true
+}
+
+// Checks if "s" consists exclusively of lowercase alpha characters.
+func IsAlphaLowerOnly(s string) bool {
+	for _, c := range s {
+		if !strings.Contains(AlphaLower, string(c)) {
+			return false
+		}
+	}
+	return true
+}
+
+// Checks if "s" consists exclusively of uppercase alpha characters.
+func IsAlphaUpperOnly(s string) bool {
+	for _, c := range s {
+		if !strings.Contains(AlphaUpper, string(c)) {
+			return false
+		}
+	}
+	return true
+}
+
+// Checks if "s" consists exclusively of alpha characters.
+func IsAlphaOnly(s string) bool {
+	for _, c := range s {
+		if !strings.Contains(Alpha, string(c)) {
+			return false
+		}
+	}
+	return true
+}

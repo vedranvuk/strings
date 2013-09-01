@@ -11,6 +11,8 @@ import (
 const Nums = "0123456789"
 const AlphaUpper = "ABCDEFGHIJKLMNOPQRSTUVXYZ"
 const AlphaLower = "abcdefghijklmnopqrstuvxyz"
+const Alpha = AlphaUpper + AlphaLower
+const AlphaNums = Nums + Alpha
 
 // Returns a string containing a random number.
 func RandomNum() string {

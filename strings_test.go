@@ -45,6 +45,33 @@ func TestRandoms(t *testing.T) {
 	*/
 }
 
+func TestAlphaNumCompares(t *testing.T) {
+	if !IsNumsOnly("1234") {
+		t.Error("IsNumsOnly() failed.")
+	}
+	if IsNumsOnly("ABCD") {
+		t.Error("IsNumsOnly() failed.")
+	}
+	if !IsAlphaLowerOnly("abcd") {
+		t.Error("IsAlphaLowerOnly() failed.")
+	}
+	if IsAlphaLowerOnly("abCD") {
+		t.Error("IsAlphaLowerOnly() failed.")
+	}
+	if !IsAlphaUpperOnly("ABCD") {
+		t.Error("IsAlphaUpperOnly() failed.")
+	}
+	if IsAlphaUpperOnly("ABcd") {
+		t.Error("IsAlphaUpperOnly() failed.")
+	}
+	if !IsAlphaOnly("ABCD") {
+		t.Error("IsAlphaOnly() failed.")
+	}
+	if IsAlphaOnly("AB34") {
+		t.Error("IsAlphaOnly() failed.")
+	}
+}
+
 func TestParse(t *testing.T) {
 	teststring := "teststring"
 
