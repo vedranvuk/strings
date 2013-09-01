@@ -81,3 +81,13 @@ func IsAlphaOnly(s string) bool {
 	}
 	return true
 }
+
+// Checks if "s" consists exclusively of alphanumeric characters.
+func IsAlphaNumsOnly(s string) bool {
+	for _, c := range s {
+		if !strings.Contains(AlphaNums, string(c)) {
+			return false
+		}
+	}
+	return true
+}
