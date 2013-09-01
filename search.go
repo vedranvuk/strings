@@ -31,3 +31,13 @@ func CompareFold(a, b string) int {
 	}
 	return 0
 }
+
+// HasPrefixFold tests whether the string s begins with prefix without case sensitivity.
+func HasPrefixFold(s, prefix string) bool {
+	return strings.HasPrefix(strings.ToLower(s), strings.ToLower(prefix))
+}
+
+// HasSuffixFold tests whether the string s ends with suffix without case sensitivity.
+func HasSuffixFold(s, suffix string) bool {
+	return strings.HasSuffix(strings.ToLower(s), strings.ToLower(suffix))
+}
