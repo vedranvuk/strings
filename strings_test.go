@@ -5,15 +5,15 @@
 package strings
 
 import (
-	"fmt"
-	"testing"
+	// "fmt"
 	"math/rand"
+	"testing"
 	"time"
 )
 
 func TestCompare(t *testing.T) {
 	if Compare("a", "b") != -1 {
-		t.Error("Compare() -1 failed.")	
+		t.Error("Compare() -1 failed.")
 	}
 	if Compare("b", "a") != 1 {
 		t.Error("Compare() 1 failed.")
@@ -21,7 +21,7 @@ func TestCompare(t *testing.T) {
 	if Compare("c", "c") != 0 {
 		t.Error("Compare() 0 failed.")
 	}
-		
+
 	if CompareFold("a", "B") != -1 {
 		t.Error("CompareFold() -1 failed.")
 	}
@@ -34,15 +34,33 @@ func TestCompare(t *testing.T) {
 }
 
 func TestRandoms(t *testing.T) {
-	fmt.Println(RandomNum())
-	fmt.Println(RandomNums(10))
-	fmt.Println(RandomLower())
-	fmt.Println(RandomLowers(10))
-	fmt.Println(RandomUpper())
-	fmt.Println(RandomUppers(10))
-	fmt.Println(RandomString(true, true, true, 10))	
+	/*
+		fmt.Println(RandomNum())
+		fmt.Println(RandomNums(10))
+		fmt.Println(RandomLower())
+		fmt.Println(RandomLowers(10))
+		fmt.Println(RandomUpper())
+		fmt.Println(RandomUppers(10))
+		fmt.Println(RandomString(true, true, true, 10))
+	*/
+}
+
+func TestParse(t *testing.T) {
+	teststring := "teststring"
+
+	if LeftByRune(teststring, 4) != "test" {
+		t.Error("LeftByRune() failed.")
+	}
+
+	if RightByRune(teststring, 5) != "string" {
+		t.Error("RightByRune() failed.")
+	}
+
+	if MidByRune(teststring, 2, 4) != "stst" {
+		t.Error("MidByRune() failed.")
+	}
 }
 
 func init() {
-	rand.Seed(time.Now().Unix())	
+	rand.Seed(time.Now().Unix())
 }
