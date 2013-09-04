@@ -5,7 +5,7 @@
 package strings
 
 import (
-	// "fmt"
+	//"fmt"
 	"math/rand"
 	"testing"
 	"time"
@@ -85,6 +85,37 @@ func TestParse(t *testing.T) {
 
 	if MidByRune(teststring, 2, 4) != "stst" {
 		t.Error("MidByRune() failed.")
+	}
+
+	if Len("ÖʘΏѠ") != 4 {
+		t.Error("Len() failed.")
+	}
+}
+
+func TestIndexes(t *testing.T) {
+	a := Indexes("a11b11c11d11e11", "11")
+	if len(a) != 5 {
+		t.Error("Indexes() failed.")
+	}
+	if a[0] != 1 {
+		t.Error("Indexes() failed.")
+	}
+	if a[1] != 4 {
+		t.Error("Indexes() failed.")
+	}
+	if a[2] != 7 {
+		t.Error("Indexes() failed.")
+	}
+	if a[3] != 10 {
+		t.Error("Indexes() failed.")
+	}
+	if a[4] != 13 {
+		t.Error("Indexes() failed.")
+	}
+
+	a = Indexes("abcdefghijk", "wat?")
+	if len(a) > 0 {
+		t.Error("Indexes() failed.")
 	}
 }
 

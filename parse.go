@@ -8,6 +8,11 @@ import (
 	"strings"
 )
 
+// Returns length of "s" by counting UTF-8 sequences.
+func Len(s string) int {
+	return len(strings.Split(s, ""))
+}
+
 // Returns "count" UTF-8 sequences from left side of "s".
 func LeftByRune(s string, count int) string {
 	l := len(s)

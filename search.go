@@ -91,3 +91,70 @@ func IsAlphaNumsOnly(s string) bool {
 	}
 	return true
 }
+
+// primeRK is the prime base used in Rabin-Karp algorithm.
+const primeRK = 16777619
+
+// hashstr returns the hash and the appropriate multiplicative
+// factor for use in Rabin-Karp algorithm.
+func hashstr(sep string) (uint32, uint32) {
+	hash := uint32(0)
+	for i := 0; i < len(sep); i++ {
+		hash = hash*primeRK + uint32(sep[i])
+
+	}
+	var pow, sq uint32 = 1, primeRK
+	for i := len(sep); i > 0; i >>= 1 {
+		if i&1 != 0 {
+			pow *= sq
+		}
+		sq *= sq
+	}
+	return hash, pow
+}
+
+// Indexes returns a slice of indexes of sep in s, or an empty slice if none
+// are present in s.
+func Indexes(s, sep string) (r []int) {
+	n := len(sep)
+	switch {
+	case n == 0:
+		return
+	case n == 1:
+		c := sep[0]
+		// special case worth making fast
+		for i := 0; i < len(s); i++ {
+			if s[i] == c {
+				r = append(r, i)
+			}
+		}
+		return
+	case n == len(s):
+		if sep == s {
+			r = append(r, 0)
+			return
+		}
+	case n > len(s):
+		return
+	}
+	// Hash sep.
+	hashsep, pow := hashstr(sep)
+	var h uint32
+	for i := 0; i < n; i++ {
+		h = h*primeRK + uint32(s[i])
+	}
+	if h == hashsep && s[:n] == sep {
+		r = append(r, 0)
+		return
+	}
+	for i := n; i < len(s); {
+		h *= primeRK
+		h += uint32(s[i])
+		h -= pow * uint32(s[i-n])
+		i++
+		if h == hashsep && s[i-n:i] == sep {
+			r = append(r, i-n)
+		}
+	}
+	return r
+}
