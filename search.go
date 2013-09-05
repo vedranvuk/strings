@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-// Compare strings a and b, return -1 if a is lower, 1 if greater, 0 if equal.
-// Case sensitive.
+// Compare strings "a" and "b", return -1 if "a" is lower, 1 if greater,
+// 0 if equal. Case sensitive.
 func Compare(a, b string) int {
 	if a < b {
 		return -1
@@ -20,8 +20,8 @@ func Compare(a, b string) int {
 	return 0
 }
 
-// Compare strings a and b, return -1 if a is lower, 1 if greater, 0 if equal.
-// Case in-sensitive.
+// Compare strings "a" and "b", return -1 if "a" is lower, 1 if greater,
+// 0 if equal. Case in-sensitive.
 func CompareFold(a, b string) int {
 	if strings.ToUpper(a) < strings.ToUpper(b) {
 		return -1
@@ -32,12 +32,14 @@ func CompareFold(a, b string) int {
 	return 0
 }
 
-// HasPrefixFold tests whether the string s begins with prefix without case sensitivity.
+// HasPrefixFold tests whether the string "s" begins with prefix.
+// Case-insensitive.
 func HasPrefixFold(s, prefix string) bool {
 	return strings.HasPrefix(strings.ToLower(s), strings.ToLower(prefix))
 }
 
-// HasSuffixFold tests whether the string s ends with suffix without case sensitivity.
+// HasSuffixFold tests whether the string "s" ends with "suffix"
+// Case-insensitive.
 func HasSuffixFold(s, suffix string) bool {
 	return strings.HasSuffix(strings.ToLower(s), strings.ToLower(suffix))
 }
@@ -113,8 +115,8 @@ func hashstr(sep string) (uint32, uint32) {
 	return hash, pow
 }
 
-// Indexes returns a slice of indexes of sep in s, or an empty slice if none
-// are present in s.
+// Indexes returns a slice of all indexes of "sep" starting positions in "s",
+// or an empty slice if none are present in "s".
 func Indexes(s, sep string) (r []int) {
 	n := len(sep)
 	switch {
@@ -157,4 +159,14 @@ func Indexes(s, sep string) (r []int) {
 		}
 	}
 	return r
+}
+
+// Checks if string "s" contains characters not in "set".
+func ContainsOther(s, set string) bool {
+	for _, c := range strings.Split(s, "") {
+		if !strings.Contains(set, c) {
+			return true
+		}
+	}
+	return false
 }

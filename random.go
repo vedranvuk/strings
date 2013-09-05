@@ -19,7 +19,7 @@ func RandomNum() string {
 	return string(Nums[rand.Intn(len(Nums))])
 }
 
-// Returns a string of random numbers of length.
+// Returns a string of random numbers of "length".
 func RandomNums(length int) string {
 	if length < 1 {
 		return ""
@@ -36,7 +36,7 @@ func RandomUpper() string {
 	return string(AlphaUpper[rand.Intn(len(AlphaUpper))])
 }
 
-// Returns a string of random uppercase letters of length.
+// Returns a string of random uppercase letters of "length".
 func RandomUppers(length int) string {
 	if length < 1 {
 		return ""
@@ -53,7 +53,7 @@ func RandomLower() string {
 	return string(AlphaLower[rand.Intn(len(AlphaLower))])
 }
 
-// Returns a string of random lowercase letters of length.
+// Returns a string of random lowercase letters of "length".
 func RandomLowers(length int) string {
 	if length < 1 {
 		return ""
@@ -65,10 +65,10 @@ func RandomLowers(length int) string {
 	return r
 }
 
-// Returns a random string of length.
-// If lo includes lowercase letters.
-// If up includes uppercase letters.
-// If num includes numbers.
+// Returns a random string of "length".
+// If "lo" includes lowercase letters.
+// If "up" includes uppercase letters.
+// If "num" includes numbers.
 func RandomString(lo, up, nums bool, length int) string {
 	if length < 1 {
 		return ""

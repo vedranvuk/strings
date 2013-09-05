@@ -79,7 +79,7 @@ func TestParse(t *testing.T) {
 		t.Error("LeftByRune() failed.")
 	}
 
-	if RightByRune(teststring, 5) != "string" {
+	if RightByRune(teststring, 6) != "string" {
 		t.Error("RightByRune() failed.")
 	}
 
@@ -117,6 +117,32 @@ func TestIndexes(t *testing.T) {
 	if len(a) > 0 {
 		t.Error("Indexes() failed.")
 	}
+}
+
+func TestContainsOther(t *testing.T) {
+	if !ContainsOther("abcd1", "abcd") {
+		t.Error("ContainsOther() failed.")
+	}
+	if ContainsOther("abcd", "abcd1") {
+		t.Error("ContainsOther() failed.")
+	}
+}
+
+func TestFetch(t *testing.T) {
+	v := "SomethingToSplit"
+	if FetchLeft(v, "To") != "Something" {
+		t.Error("FetchLeft() failed.")
+	}
+	if FetchRight(v, "To") != "Split" {
+		t.Error("FetchRight() failed.")
+	}
+	if FetchLeftFold(v, "to") != "Something" {
+		t.Error("FetchLeftFold() failed.")
+	}
+	if FetchRightFold(v, "to") != "Split" {
+		t.Error("FetchRightFold() failed.")
+	}
+
 }
 
 func init() {
