@@ -5,146 +5,87 @@
 package strings
 
 import (
-	//"fmt"
-	"math/rand"
 	"testing"
-	"time"
 )
 
-func TestCompare(t *testing.T) {
-	if Compare("a", "b") != -1 {
-		t.Error("Compare() -1 failed.")
-	}
-	if Compare("b", "a") != 1 {
-		t.Error("Compare() 1 failed.")
-	}
-	if Compare("c", "c") != 0 {
-		t.Error("Compare() 0 failed.")
-	}
+func TestRuneFunctions(t *testing.T) {
+	in := "teststring"
 
-	if CompareFold("a", "B") != -1 {
-		t.Error("CompareFold() -1 failed.")
-	}
-	if CompareFold("b", "A") != 1 {
-		t.Error("CompareFold() 1 failed.")
-	}
-	if CompareFold("TEST", "test") != 0 {
-		t.Error("CompareFold() 0 failed.")
-	}
-}
-
-func TestRandoms(t *testing.T) {
-	/*
-		fmt.Println(RandomNum())
-		fmt.Println(RandomNums(10))
-		fmt.Println(RandomLower())
-		fmt.Println(RandomLowers(10))
-		fmt.Println(RandomUpper())
-		fmt.Println(RandomUppers(10))
-		fmt.Println(RandomString(true, true, true, 10))
-	*/
-}
-
-func TestAlphaNumCompares(t *testing.T) {
-	if !IsNumsOnly("1234") {
-		t.Error("IsNumsOnly() failed.")
-	}
-	if IsNumsOnly("ABCD") {
-		t.Error("IsNumsOnly() failed.")
-	}
-	if !IsAlphaLowerOnly("abcd") {
-		t.Error("IsAlphaLowerOnly() failed.")
-	}
-	if IsAlphaLowerOnly("abCD") {
-		t.Error("IsAlphaLowerOnly() failed.")
-	}
-	if !IsAlphaUpperOnly("ABCD") {
-		t.Error("IsAlphaUpperOnly() failed.")
-	}
-	if IsAlphaUpperOnly("ABcd") {
-		t.Error("IsAlphaUpperOnly() failed.")
-	}
-	if !IsAlphaOnly("ABCD") {
-		t.Error("IsAlphaOnly() failed.")
-	}
-	if IsAlphaOnly("AB34") {
-		t.Error("IsAlphaOnly() failed.")
-	}
-}
-
-func TestParse(t *testing.T) {
-	teststring := "teststring"
-
-	if LeftByRune(teststring, 4) != "test" {
+	if LeftByRune(in, 4) != "test" {
 		t.Error("LeftByRune() failed.")
 	}
 
-	if RightByRune(teststring, 6) != "string" {
+	if RightByRune(in, 6) != "string" {
 		t.Error("RightByRune() failed.")
 	}
 
-	if MidByRune(teststring, 2, 4) != "stst" {
+	if MidByRune(in, 2, 4) != "stst" {
 		t.Error("MidByRune() failed.")
 	}
 
-	if Len("ÖʘΏѠ") != 4 {
-		t.Error("Len() failed.")
-	}
-}
-
-func TestIndexes(t *testing.T) {
-	a := Indexes("a11b11c11d11e11", "11")
-	if len(a) != 5 {
-		t.Error("Indexes() failed.")
-	}
-	if a[0] != 1 {
-		t.Error("Indexes() failed.")
-	}
-	if a[1] != 4 {
-		t.Error("Indexes() failed.")
-	}
-	if a[2] != 7 {
-		t.Error("Indexes() failed.")
-	}
-	if a[3] != 10 {
-		t.Error("Indexes() failed.")
-	}
-	if a[4] != 13 {
-		t.Error("Indexes() failed.")
-	}
-
-	a = Indexes("abcdefghijk", "wat?")
-	if len(a) > 0 {
-		t.Error("Indexes() failed.")
-	}
-}
-
-func TestContainsOther(t *testing.T) {
-	if !ContainsOther("abcd1", "abcd") {
-		t.Error("ContainsOther() failed.")
-	}
-	if ContainsOther("abcd", "abcd1") {
+	if !ContainsOther("abcde", "abc") {
 		t.Error("ContainsOther() failed.")
 	}
 }
 
-func TestFetch(t *testing.T) {
-	v := "SomethingToSplit"
-	if FetchLeft(v, "To") != "Something" {
+func TestStringFunctions(t *testing.T) {
+	in := "teststring"
+
+	if FetchLeft(in, "str") != "test" {
 		t.Error("FetchLeft() failed.")
 	}
-	if FetchRight(v, "To") != "Split" {
+
+	if FetchRight(in, "est") != "string" {
 		t.Error("FetchRight() failed.")
 	}
-	if FetchLeftFold(v, "to") != "Something" {
+
+	if FetchLeftFold(in, "STR") != "test" {
 		t.Error("FetchLeftFold() failed.")
 	}
-	if FetchRightFold(v, "to") != "Split" {
+
+	if FetchRightFold(in, "EST") != "string" {
 		t.Error("FetchRightFold() failed.")
 	}
 
+	if !HasPrefixFold(in, "TEST") {
+		t.Error("HasPrefixFold() failed.")
+	}
+
+	if !HasSuffixFold(in, "STRING") {
+		t.Error("HasSuffixFold() failed.")
+	}
+
+	i := Indexes("a.b.c.d.e", ".")
+	if len(i) != 4 {
+		t.Error("Indexes() failed.")
+	}
+	if i[0] != 1 && i[1] != 3 && i[2] != 5 && i[3] != 7 {
+		t.Error("Indexes() failed.")
+	}
+
+	j := IndexesFold("1a2a3a4a5", "A")
+	if len(j) != 4 {
+		t.Error("Indexes() failed.")
+	}
+	if j[0] != 1 && j[1] != 3 && j[2] != 5 && j[3] != 7 {
+		t.Error("Indexes() failed.")
+	}
 }
 
-func init() {
-	rand.Seed(time.Now().Unix())
+func TestAsciiFunctions(t *testing.T) {
+	if !IsNumsOnly("12345") {
+		t.Error("IsNumsOnly() failed.")
+	}
+	if !IsAlphaLowerOnly("abcde") {
+		t.Error("IsAlphaLowerOnly() failed.")
+	}
+	if !IsAlphaUpperOnly("ABCDE") {
+		t.Error("IsAlphaUpperOnly() failed.")
+	}
+	if !IsAlphaOnly("abcdeABCDE") {
+		t.Error("IsAlphaOnly() failed.")
+	}
+	if !IsAlphaNumsOnly("12345abcdeABCDE") {
+		t.Error("IsAlphaNumsOnly() failed.")
+	}
 }

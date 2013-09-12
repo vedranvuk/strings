@@ -8,12 +8,6 @@ import (
 	"math/rand"
 )
 
-const Nums = "0123456789"
-const AlphaUpper = "ABCDEFGHIJKLMNOPQRSTUVXYZ"
-const AlphaLower = "abcdefghijklmnopqrstuvxyz"
-const Alpha = AlphaUpper + AlphaLower
-const AlphaNums = Nums + Alpha
-
 // Returns a string containing a random number.
 func RandomNum() string {
 	return string(Nums[rand.Intn(len(Nums))])
