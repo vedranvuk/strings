@@ -5,6 +5,7 @@
 package strings
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -26,6 +27,23 @@ func TestRuneFunctions(t *testing.T) {
 	if !ContainsOther("abcde", "abc") {
 		t.Error("ContainsOther() failed.")
 	}
+
+	in = strings.Repeat("A", 1024)
+
+	a := LenLimitByRune(in, 500)
+	if len(a) != 500 {
+		t.Error("LenLimitByRune() failed.")
+	}
+
+	b := LenSplitByRune(in, 384)
+	if len(b) != 3 {
+		t.Error("LenSplitByRune() failed.")
+	} else {
+		if len(b[0]) != 384 || len(b[1]) != 384 || len(b[2]) != 256 {
+			t.Error("LenSplitByRune() failed.")
+		}
+	}
+
 }
 
 func TestStringFunctions(t *testing.T) {

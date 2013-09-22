@@ -17,12 +17,11 @@ func RuneCount(s string) (n int) {
 }
 
 // Returns a slice of runes which form string "s".
-func Runes(s string) []rune {
-	result := []rune{}
+func Runes(s string) (result []rune) {
 	for _, r := range s {
 		result = append(result, r)
 	}
-	return result
+	return
 }
 
 // Returns "count" runes from left side of string "s" as a string.
@@ -62,6 +61,52 @@ func MidByRune(s string, start, count int) string {
 		return ""
 	}
 	return string(r[start : start+count])
+}
+
+// Limits "text" to "max" length which is expressed in bytes.
+// Limiting is done at UTF-8 unicode code points and resulting string is ensured
+// to be less than or equal to "max" bytes in length.
+func LenLimitByRune(text string, max int) string {
+	if len(text) > max {
+		u := strings.Split(text, "")
+		i := 0
+		s := ""
+		for i < len(u) {
+			if len(s)+len(u[i]) > max {
+				break
+			}
+			s = s + u[i]
+			i++
+		}
+		return s
+	}
+	return text
+}
+
+// Split "msg" to array of string of "max" length which is expressed in bytes.
+// Splitting is done at UTF-8 unicode cod points and resulting strings are ensured
+// to be less than or equal to "max" bytes in length.
+func LenSplitByRune(text string, max int) (out []string) {
+	if len(text) > max {
+		u := strings.Split(text, "")
+		l := len(u)
+		i := 0
+		for i < l {
+			s := ""
+			for i < l {
+				if len(s)+len(u[i]) > max {
+					break
+				} else {
+					s = s + u[i]
+					i++
+				}
+			}
+			out = append(out, s)
+		}
+	} else {
+		out = append(out, text)
+	}
+	return
 }
 
 // Checks if string "s" contains characters not in "set".
