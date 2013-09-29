@@ -24,6 +24,13 @@ func Runes(s string) (result []rune) {
 	return
 }
 
+func RunesAsStrings(s string) (result []string) {
+	for _, r := range s {
+		result = append(result, string(r))
+	}
+	return
+}
+
 // Returns "count" runes from left side of string "s" as a string.
 // If "count" is more than num of chars in "s" all is returned w/o error.
 func LeftByRune(s string, count int) string {

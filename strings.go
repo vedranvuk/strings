@@ -9,6 +9,30 @@ import (
 	"strings"
 )
 
+// Compare strings a and b, return -1 if a is lower, 1 if greater, 0 if equal.
+// Case sensitive.
+func Compare(a, b string) int {
+	if a < b {
+		return -1
+	}
+	if a > b {
+		return 1
+	}
+	return 0
+}
+
+// Compare strings a and b, return -1 if a is lower, 1 if greater, 0 if equal.
+// Case in-sensitive.
+func CompareFold(a, b string) int {
+	if strings.ToLower(a) < strings.ToLower(b) {
+		return -1
+	}
+	if strings.ToLower(a) > strings.ToLower(b) {
+		return 1
+	}
+	return 0
+}
+
 // Return everything from left of "s" up to "sep".
 func FetchLeft(s, sep string) string {
 	v := strings.Split(s, sep)
@@ -122,4 +146,56 @@ func Indexes(s, sep string) (r []int) {
 // "s", or an empty slice if none are present in "s". Case-insensitive.
 func IndexesFold(s, sep string) []int {
 	return Indexes(strings.ToLower(s), strings.ToLower(sep))
+}
+
+// Matches "text" agains "wildcard". Case insensitive. * and ? supported.
+func MatchesWildcard(text, wildcard string) bool {
+	s := RunesAsStrings(text)
+	if len(s) < 1 {
+		return false
+	}
+
+	w := RunesAsStrings(wildcard)
+	if len(w) < 1 {
+		return false
+	}
+
+	is := 0
+	iw := 0
+	sw := 0
+	ss := -1
+
+	for is < len(s) && w[iw] != "*" {
+		if w[iw] != "?" && !strings.EqualFold(s[is], w[iw]) {
+			return false
+		}
+		is++
+		iw++
+	}
+
+	for is < len(s) {
+		if w[iw] == "*" {
+			iw++
+			if iw >= len(w) {
+				return true
+			}
+			sw = iw
+			ss = is
+		} else {
+			if strings.EqualFold(s[is], w[iw]) || w[iw] == "?" {
+				is++
+				iw++
+			} else {
+				is = ss
+				ss++
+				iw = sw
+			}
+		}
+	}
+
+	for iw < len(w) && w[iw] == "*" {
+		iw++
+	}
+
+	return iw == len(w)
 }

@@ -88,6 +88,16 @@ func TestStringFunctions(t *testing.T) {
 	if j[0] != 1 && j[1] != 3 && j[2] != 5 && j[3] != 7 {
 		t.Error("Indexes() failed.")
 	}
+
+	if !MatchesWildcard("Dickson", "?ic*n") {
+		t.Error("MatchesWildcard() failed")
+	}
+	if !MatchesWildcard("Sensible", "se?s*le") {
+		t.Error("MatchesWildcard() failed")
+	}
+	if MatchesWildcard("ThisIsWrong", "?hi*IswrongO") {
+		t.Error("MatchesWildcard() failed")
+	}
 }
 
 func TestAsciiFunctions(t *testing.T) {
