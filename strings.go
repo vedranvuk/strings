@@ -148,7 +148,7 @@ func IndexesFold(s, sep string) []int {
 	return Indexes(strings.ToLower(s), strings.ToLower(sep))
 }
 
-// Matches "text" agains "wildcard". Case insensitive. * and ? supported.
+// Matches "text" against "wildcard". Case insensitive. * and ? supported.
 func MatchesWildcard(text, wildcard string) bool {
 	s := RunesAsStrings(text)
 	if len(s) < 1 {

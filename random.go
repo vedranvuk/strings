@@ -8,6 +8,10 @@ import (
 	"math/rand"
 )
 
+// Default special characters set used in passwords.
+// < and > may cause issues on some systems.
+const DefSpecialChars = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+
 // Returns a string containing a random number.
 func RandomNum() string {
 	return string(Nums[rand.Intn(len(Nums))])
@@ -55,6 +59,23 @@ func RandomLowers(length int) string {
 	r := ""
 	for i := 0; i < length; i++ {
 		r = r + RandomLower()
+	}
+	return r
+}
+
+// Returns a string containing a random password special character.
+func RandomSpecial() string {
+	return string(DefSpecialChars[rand.Intn(len(DefSpecialChars))])
+}
+
+// Returns a string of random special characters of "length".
+func RandomSpecials(length int) string {
+	if length < 1 {
+		return ""
+	}
+	r := ""
+	for i := 0; i < length; i++ {
+		r = r + RandomSpecial()
 	}
 	return r
 }

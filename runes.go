@@ -24,6 +24,7 @@ func Runes(s string) (result []rune) {
 	return
 }
 
+// Explodes "s" into an array of runes in a string array.
 func RunesAsStrings(s string) (result []string) {
 	for _, r := range s {
 		result = append(result, string(r))
