@@ -148,52 +148,56 @@ func IndexesFold(s, sep string) []int {
 	return Indexes(strings.ToLower(s), strings.ToLower(sep))
 }
 
-// Matches "text" against "wildcard". Case insensitive. * and ? supported.
-func MatchesWildcard(text, wildcard string) bool {
-	s := RunesAsStrings(text)
-	if len(s) < 1 {
+// Matches "text" against "pattern". Case insensitive. * and ? supported.
+func MatchesWildcard(text, pattern string) bool {
+	if text == "" || pattern == "" {
 		return false
 	}
 
-	w := RunesAsStrings(wildcard)
-	if len(w) < 1 {
-		return false
+	t, w := []rune{}, []rune{}
+	for _, v := range text {
+		t = append(t, v)
+	}
+	for _, v := range pattern {
+		w = append(w, v)
 	}
 
-	is := 0
+	it := 0
 	iw := 0
-	sw := 0
-	ss := -1
-
-	for is < len(s) && w[iw] != "*" {
-		if w[iw] != "?" && !strings.EqualFold(s[is], w[iw]) {
+	for it < len(t) && iw < len(w) {
+		if w[iw] == '*' {
+			break
+		}
+		if w[iw] != '?' && !strings.EqualFold(string(t[it]), string(w[iw])) {
 			return false
 		}
-		is++
+		it++
 		iw++
 	}
 
-	for is < len(s) {
-		if w[iw] == "*" {
+	sw := 0
+	st := -1
+	for it < len(t) && iw < len(w) {
+		if w[iw] == '*' {
 			iw++
 			if iw >= len(w) {
 				return true
 			}
 			sw = iw
-			ss = is
+			st = it
 		} else {
-			if strings.EqualFold(s[is], w[iw]) || w[iw] == "?" {
-				is++
+			if w[iw] == '?' || strings.EqualFold(string(t[it]), string(w[iw])) {
+				it++
 				iw++
 			} else {
-				is = ss
-				ss++
+				it = st
+				st++
 				iw = sw
 			}
 		}
 	}
 
-	for iw < len(w) && w[iw] == "*" {
+	for iw < len(w) && w[iw] == '*' {
 		iw++
 	}
 
