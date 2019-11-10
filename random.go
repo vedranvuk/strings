@@ -99,8 +99,10 @@ func RandomString(lo, up, nums bool, length int) string {
 		f = append(f, RandomNum)
 	}
 	r := ""
-	for i := 0; i < length; i++ {
-		r = r + f[rand.Intn(len(f))]()
+	if lo || up || nums {
+		for i := 0; i < length; i++ {
+			r = r + f[rand.Intn(len(f))]()
+		}
 	}
 	return r
 }
