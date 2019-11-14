@@ -22,11 +22,11 @@ func RandomNums(length int) string {
 	if length < 1 {
 		return ""
 	}
-	r := ""
+	r := make([]byte, length)
 	for i := 0; i < length; i++ {
-		r = r + RandomNum()
+		r[i] = byte(RandomNum()[0])
 	}
-	return r
+	return string(r)
 }
 
 // Returns a string containing a random uppercase letter.
@@ -39,11 +39,11 @@ func RandomUppers(length int) string {
 	if length < 1 {
 		return ""
 	}
-	r := ""
+	r := make([]byte, length)
 	for i := 0; i < length; i++ {
-		r = r + RandomUpper()
+		r[i] = byte(RandomUpper()[0])
 	}
-	return r
+	return string(r)
 }
 
 // Returns a string containing a random lowercase letter.
@@ -56,11 +56,11 @@ func RandomLowers(length int) string {
 	if length < 1 {
 		return ""
 	}
-	r := ""
+	r := make([]byte, length)
 	for i := 0; i < length; i++ {
-		r = r + RandomLower()
+		r[i] = byte(RandomLower()[0])
 	}
-	return r
+	return string(r)
 }
 
 // Returns a string containing a random password special character.
@@ -73,11 +73,11 @@ func RandomSpecials(length int) string {
 	if length < 1 {
 		return ""
 	}
-	r := ""
+	r := make([]byte, length)
 	for i := 0; i < length; i++ {
-		r = r + RandomSpecial()
+		r[i] = byte(RandomSpecial()[0])
 	}
-	return r
+	return string(r)
 }
 
 // Returns a random string of "length".
@@ -98,11 +98,11 @@ func RandomString(lo, up, nums bool, length int) string {
 	if nums {
 		f = append(f, RandomNum)
 	}
-	r := ""
+	r := make([]byte, length)
 	if lo || up || nums {
 		for i := 0; i < length; i++ {
-			r = r + f[rand.Intn(len(f))]()
+			r[i] = byte(f[rand.Intn(len(f))]()[0])
 		}
 	}
-	return r
+	return string(r)
 }
